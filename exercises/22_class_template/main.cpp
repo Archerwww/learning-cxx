@@ -1,4 +1,5 @@
 ﻿#include "../exercise.h"
+#include <cstring>// 包含 memcpy
 
 // READ: 类模板 <https://zh.cppreference.com/w/cpp/language/class_template>
 
@@ -18,7 +19,7 @@ struct Tensor4D {
         //为data动态分配内存
         data = new T[size];
         //复制数据
-        std::memcpy(data, data_, size * sizeof(T));
+        memcpy(data, data_, size * sizeof(T));
     }
     ~Tensor4D() {
         delete[] data;

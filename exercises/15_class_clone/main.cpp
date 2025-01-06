@@ -1,4 +1,5 @@
 #include "../exercise.h"
+#include <cstring>// 包含 memcpy
 
 // READ: 复制构造函数 <https://zh.cppreference.com/w/cpp/language/copy_constructor>
 // READ: 函数定义（显式弃置）<https://zh.cppreference.com/w/cpp/language/function>
@@ -27,7 +28,7 @@ public:
           cached(others.cached) {
         //std:memcpy可以在复制构造函数中高效的复制缓存数组的内容，适用于简平铺的数据结构
         //如果对象中包含复杂的数据类型或指针，建议逐个元素进行深拷贝，以确保正确处理所有资源
-        std::memcpy(cache, others.cache, cached * sizeof(size_t));
+        memcpy(cache, others.cache, cached * sizeof(size_t));
     }
 
     // 显式弃置复制构造器

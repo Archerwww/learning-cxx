@@ -1,4 +1,5 @@
 #include "../exercise.h"
+#include <cstring>// 添加这一行以包含 memcpy
 
 // READ: 枚举类型 <https://zh.cppreference.com/w/cpp/language/enum>
 
@@ -25,26 +26,40 @@ enum class Color : int {
     Blue,
 };
 
+//ColorEnum convert_by_pun(Color c) {
+//    // READ: <https://zh.cppreference.com/w/cpp/language/union>
+//    // `union` 表示在同一内存位置存储的不同类型的值。
+//    // 其常见用法是实现类型双关转换，即将一种类型的值转换为另一种无关类型的值。
+//    // 但这种写法实际上仅在 C 语言良定义，在 C++ 中是未定义行为。
+//    // 这是比较少见的 C++ 不与 C 保持兼容的特性。
+//    // READ: 类型双关 <https://tttapa.github.io/Pages/Programming/Cpp/Practices/type-punning.html>
+//    //union TypePun {
+//    //    ColorEnum e;
+//    //    Color c;
+//    //};
+//
+//    //TypePun pun;
+//    //// TODO: 补全类型双关转换
+//
+//    //return pun.e;
+//    ColorEnum result;
+//    //std::memcpy通过复制内存内容来实现类型转换，确保不会违反别名规则
+//    //&result是目标地址，&c是源地址，sizeof(result)指定要复制的字节数，返回给定类型result的大小
+//    std::memcpy(&result, &c, sizeof(result));
+//    return result;
+//}
+//
+//int main(int argc, char **argv) {
+//    ASSERT(convert_by_pun(Color::Red) == COLOR_RED, "Type punning conversion");
+//    ASSERT(convert_by_pun(Color::Green) == COLOR_GREEN, "Type punning conversion");
+//    ASSERT(convert_by_pun(Color::Yellow) == COLOR_YELLOW, "Type punning conversion");
+//    ASSERT(convert_by_pun(Color::Blue) == COLOR_BLUE, "Type punning conversion");
+//    return 0;
+//}
 ColorEnum convert_by_pun(Color c) {
-    // READ: <https://zh.cppreference.com/w/cpp/language/union>
-    // `union` 表示在同一内存位置存储的不同类型的值。
-    // 其常见用法是实现类型双关转换，即将一种类型的值转换为另一种无关类型的值。
-    // 但这种写法实际上仅在 C 语言良定义，在 C++ 中是未定义行为。
-    // 这是比较少见的 C++ 不与 C 保持兼容的特性。
-    // READ: 类型双关 <https://tttapa.github.io/Pages/Programming/Cpp/Practices/type-punning.html>
-    //union TypePun {
-    //    ColorEnum e;
-    //    Color c;
-    //};
-
-    //TypePun pun;
-    //// TODO: 补全类型双关转换
-
-    //return pun.e;
     ColorEnum result;
-    //std::memcpy通过复制内存内容来实现类型转换，确保不会违反别名规则
-    //&result是目标地址，&c是源地址，sizeof(result)指定要复制的字节数，返回给定类型result的大小
-    std::memcpy(&result, &c, sizeof(result));
+    // 直接使用 memcpy 而不是 std::memcpy
+    memcpy(&result, &c, sizeof(result));
     return result;
 }
 
